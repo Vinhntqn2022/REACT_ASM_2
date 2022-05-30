@@ -1,0 +1,73 @@
+* {
+    box-sizing: border-box;
+  }
+  .heading {
+    text-align: center;
+    margin-top: 10px;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .container-fluid {
+    padding: 0;
+    margin-top: 1.5rem;
+   
+  }
+  
+  .new-task {
+    border: 1px solid grey;
+    border-radius: 5px;
+    max-width: 100%;
+    background: rgba(161, 159, 159,0.5);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  .task-list  {
+    border: 1px solid grey;
+    border-radius: 5px;
+    max-width: 100%;
+    background: rgba(161, 159, 159,0.5);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+  
+  
+  input[type="radio"] { 
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+  }
+  label.low,
+  label.medium,
+  label.high {
+    padding-left: 35px; 
+    position: relative;
+    margin: 0;
+    line-height: 20px;
+  }
+  label.low:before,
+  label.medium:before,
+  label.high:before {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    content: '';
+    border: 1px solid black;
+  }
+  label.low:before {
+    background-color: aqua;
+  }
+  label.medium:before {
+    background-color: yellowgreen;
+  }
+  label.high:before {
+    background-color: rgb(194, 75, 75);
+  }
+  .task {
+    width: 100%;
+  }
