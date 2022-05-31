@@ -11,6 +11,9 @@ const AuthProvider = ({ children }) => {
     const location = useLocation();
 
     const [token, setToken] = useState(null)
+    const [showUsenameAlert, setShowUsenameAlert] = useState(false)
+    const [showPasswordAlert, setShowPasswordAlert] = useState(false)
+    const [showSuccess, setShowSuccess] = useState(false)
     const [userData, setUserData] = useState([
         {
             usename: "admin",
@@ -21,28 +24,27 @@ const AuthProvider = ({ children }) => {
             password: "vinhvinh"
         }
     ])
-    console.log(userData)
+    const getTokenApi = useApi(() => fakeAuth())
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem('token'));
         if (items) {
          setToken(items);
         }
+        getTokenApi.request()
       }, []);
-    const getTokenApi = useApi(() => fakeAuth())
     useEffect(() => {
         localStorage.setItem('token', JSON.stringify(token));
     }, [token])
 
-    const handleLogin = async (values) => {
+    const handleLogin = (values) => {
       const corectUsername = userData.find(user => user.usename === values.usename)
       if(!corectUsername) {
-          alert("incorrect usename")
+        setShowUsenameAlert(true)
       } else if(corectUsername.password !== values.password) {
-          alert("incorrect password")
-      } else {
-        await getTokenApi.request()
-        console.log(getTokenApi.data)
+        setShowPasswordAlert(true)
+      } else {      
         setToken(getTokenApi.data)  
+        console.log(token)
         const origin = location.state?.from?.pathname || '/dashboard'
         navigate(origin)
       }
@@ -50,23 +52,42 @@ const AuthProvider = ({ children }) => {
     }
     const handlecreateAcount =(values) => {
         setUserData([...userData, values])
+        setShowSuccess(true)
+        navigate("/signin")
+
     }
     const handleLogout = () => {
       setToken(null)
     }
-    const handleshowSignUp = () => {
+    const handleSignUpShow = () => {
         navigate("/signup")
     }
-    const handlecancelSetup = () => {
+    const handleSignInShow = () => {
         navigate("/signin")
+    }
+    const handleMessageShow = (value) => {
+        setShowUsenameAlert(value)
+    }
+    const handlePasswordShow = (value) => {
+        setShowPasswordAlert(value)
+    }
+    const handleShowSucess = (value) => {
+        setShowSuccess(value)
     }
     const value = {
         token: token,
         onLogin: handleLogin,
         onLogout: handleLogout,
-        showSignUp: handleshowSignUp,
-        cancelSetup: handlecancelSetup,
-        createAcount: handlecreateAcount
+        showSignUp: handleSignUpShow,
+        showSignIn: handleSignInShow,
+        createAcount: handlecreateAcount,
+        showUsenameAlert: showUsenameAlert,
+        showPasswordAlert: showPasswordAlert,
+        setShowMessage: handleMessageShow,
+        handlePasswordShow: handlePasswordShow,
+        showSuccess: showSuccess,
+        setShowSucess: handleShowSucess
+
     }
     if (getTokenApi.loading) {
     return (<p>pages are loading</p>)

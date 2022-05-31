@@ -7,10 +7,10 @@ export default (apiFunc) => {
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
 
-    const request = async (...args) => {
+    const request = async () => {
         setLoading(true);
         try {
-            const result = await apiFunc(...args);
+            const result = await apiFunc();
             setData(result);
         } catch (err) {
             setError(err.message || "Unexpected Error")

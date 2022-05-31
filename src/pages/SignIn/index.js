@@ -7,6 +7,10 @@ import {useAuth} from "../../Context"
 
 export default function SignIn () {
     const { onLogin, showSignUp } = useAuth()
+    const initialValues = {
+        usename: "",
+        password: ""
+    }
     const validate = Yup.object({
         usename: Yup.string()
         .max(15, "Must be 15 charaters or less")
@@ -16,18 +20,13 @@ export default function SignIn () {
         .required("required")
     })
     return (
-        <div className="constiner mt-3">
-            <div className="row">
-                <div className="col-md-7">
+        <div className="constiner mt-3 ">
+            <div className="row ">
+                <div className="col-md-5 mx-auto">
                     <Formik
-                        initialValues={{
-                            usename: "",
-                            password: ""
-                        }}
+                        initialValues={initialValues}
                         validationSchema={validate}
-                        onSubmit={values => {
-                            onLogin(values)
-                        }}
+                        onSubmit={values => {onLogin(values)}}
                     >
                         {({values, handleSubmit}) => (
                             <div>
@@ -35,9 +34,9 @@ export default function SignIn () {
                                 <form onSubmit={handleSubmit}>
                                     <TextField label="usename" name="usename" type="text" />
                                     <TextField label="password" name="password" type="password" />
-                                    <div className="mt-3 mr-5">
-                                        <p className="mr-3">don't have acount <a className="text-danger" type="button" onClick={showSignUp}>Sign Up</a></p>
-                                        <button className="btn btn-dark float-right" type="submit">SignIn</button>
+                                    <div className="mt-3  px-5 d-flex justify-content-between">
+                                        <p className="mr-3">don't have an acount <a className="text-danger" type="button" onClick={showSignUp}>Sign Up</a></p>
+                                        <button className="btn btn-dark float-right" type="submit">Sign In</button>
                                     </div>
                                 </form>
                             </div>

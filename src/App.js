@@ -10,13 +10,23 @@ import Dashboard from "./pages/Dashboard";
 import { AuthProvider } from "./Context"
 import { ProtectedRoute } from "./routes/ProtectedRoute"
 import {AuthRoute} from "./routes/AuthRoute"
+import NotFound from "./pages/NotFound";
+import Navigation from "./components/Navigation";
+import Home from "./pages/Home";
+import UsenameAlert from "./components/annoucements/UsenameAlert";
+import PasswordAlert from "./components/annoucements/PasswordAlert";
+import SignUpSuccess from "./components/annoucements/SignUpSuccess";
 
 
 function App() {
    return (
          <AuthProvider>
+            <SignUpSuccess />
+            <UsenameAlert />
+            <PasswordAlert />
+            <Navigation />
             <Routes>
-              <Route index element={<SignIn />} />
+              <Route index element={<Home />} />
               <Route path="signin" element={
                 <AuthRoute>
                   <SignIn />
@@ -32,6 +42,7 @@ function App() {
                   <Dashboard />
                 </ProtectedRoute>
               }/>
+              <Route path='*' element={<NotFound />}/>
             </Routes>
           </AuthProvider>
   )

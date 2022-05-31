@@ -1,20 +1,17 @@
 import React from "react";
 import { NavLink } from "react-router-dom"
 
-import {useAuth} from "../../Context"
+
 
 function Navigation () {
-  const {token, onLogout} = useAuth()
-  
+ 
     return (
-       <nav>
-         <NavLink to="/home">Home</NavLink>
-         <NavLink to="/dashboard">Dashboard</NavLink>
-         {token && (
-           <button type="button" onClick={onLogout}>
-           Sign Out
-         </button>
-         )}
+       <nav className="navbar bg-dark">
+          <div className="container d-flex justify-content-start">        
+            <NavLink className="navbar-item mx-5" to="/">Home</NavLink>
+            <NavLink className="navbar-item" to="/dashboard">Dashboard</NavLink>
+         </div> 
+         
        </nav>
     );
 }

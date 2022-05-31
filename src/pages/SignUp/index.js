@@ -6,7 +6,7 @@ import TextField from "../../components/TextField";
 import {useAuth} from "../../Context"
 
 export default function SignIn () {
-    const { cancelSetup, createAcount } = useAuth()
+    const { showSignIn, createAcount } = useAuth()
     const validate = Yup.object({
         usename: Yup.string()
         .max(15, "Must be 15 charaters or less")
@@ -18,7 +18,7 @@ export default function SignIn () {
     return (
         <div className="constiner mt-3">
             <div className="row">
-                <div className="col-md-7">
+                <div className="col-md-5 mx-auto">
                     <Formik
                         initialValues={{
                             usename: "",
@@ -38,9 +38,9 @@ export default function SignIn () {
                                     <TextField label="usename" name="usename" type="text" />
                                     <TextField label="password" name="password" type="password" />
 
-                                    <div className="mt-3 mr-5">
+                                    <div className="mt-3  px-5 d-flex justify-content-between">
+                                        <p className="mr-3">Already have an acount <a className="text-danger" type="button" onClick={showSignIn}>Sign In</a></p>
                                         <button className="btn btn-dark float-right" type="submit">Sign Up</button>
-                                        <button className="btn btn-dark float-right" type="reset"onClick={cancelSetup}>Cancel</button>
                                     </div>
                                 </form>
                             </div>
