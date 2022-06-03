@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Alert } from 'react-bootstrap'
 import './PasswordAlert.css'
+import { useSelector, useDispatch } from "react-redux";
+import { AlertActions } from "../../../redux/rootAction";
 
-import {useAuth} from "../../../Context"
 
-export default function PasswordAlert() {
-    const {showPasswordAlert, handlePasswordShow} = useAuth()
+
+const PasswordAlert = () => {
+    const showPasswordAlert = useSelector(state => state.AlertReducer.wrongPassAlert)
+    const dispatch = useDispatch()
+    
     return (
         <div className="password-alert">
             <Alert variant="success" show={showPasswordAlert} >
-                 <button className="close" onClick={() => handlePasswordShow(false)}>close</button>
+                 <button className="close" onClick={() => dispatch(AlertActions.setWrongPassAlert(false))}>close</button>
                 <Alert.Heading>Hey, nice to see you</Alert.Heading> 
                 <p>Wrong password</p>
                 <hr />
@@ -18,3 +22,5 @@ export default function PasswordAlert() {
         </div>
     )
 }
+
+export default PasswordAlert

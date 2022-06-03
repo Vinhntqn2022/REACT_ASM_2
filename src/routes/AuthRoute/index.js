@@ -1,13 +1,12 @@
 import React from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import { useAuth } from "../../Context";
 
 const AuthRoute = ({ children }) => {
-    const { token } = useAuth();
-    const location = useLocation();
+    const token = useSelector(state => state.AuthReducer.token)
     if (token) {
-        return <Navigate to="/Dashboard" replace state={{from: location}} />
+        return <Navigate to="/dashboard" replace />
     } else return children
 }
 export { AuthRoute }

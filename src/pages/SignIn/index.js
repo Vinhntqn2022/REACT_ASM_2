@@ -1,12 +1,33 @@
 import { Formik } from "formik";
 import * as Yup from "yup";
 import React from "react";
+import { useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux";
 
+import "./SignIn.css"
+import { AuthActions, AlertActions } from "../../redux/rootAction";
 import TextField from "../../components/TextField";
-import {useAuth} from "../../Context"
+
 
 export default function SignIn () {
-    const { onLogin, showSignUp } = useAuth()
+    const userData = useSelector(state => state.AuthReducer.userData)
+    const dispatch = useDispatch()
+    const handleLogin = (values) => {
+        const corectUsername = userData.find(user => user.usename === values.usename)
+        if(!corectUsername) {
+            dispatch(AlertActions.setWrongUsernameAlert(true))
+        } else if(corectUsername.password !== values.password) {
+            dispatch(AlertActions.setWrongPassAlert(true))
+        } else {
+            dispatch(AuthActions.setToken('2342f2f1d131rf12'))
+            dispatch(AlertActions.setSignUpSuccess(true))
+            navigate('/dashboard')
+            }
+        }  
+    const navigate = useNavigate()
+    const handleSignUpShow = () => {
+        navigate("/signup")
+    }
     const initialValues = {
         usename: "",
         password: ""
@@ -26,16 +47,16 @@ export default function SignIn () {
                     <Formik
                         initialValues={initialValues}
                         validationSchema={validate}
-                        onSubmit={values => {onLogin(values)}}
+                        onSubmit={values => {handleLogin(values)}}
                     >
                         {({values, handleSubmit}) => (
-                            <div>
+                            <div className="formik-singin my-5 py-5">
                                 <h1 className="my-4 font-weight-bold-display-4 text-center">Sign In</h1>
                                 <form onSubmit={handleSubmit}>
                                     <TextField label="usename" name="usename" type="text" />
                                     <TextField label="password" name="password" type="password" />
                                     <div className="mt-3  px-5 d-flex justify-content-between">
-                                        <p className="mr-3">don't have an acount <a className="text-danger" type="button" onClick={showSignUp}>Sign Up</a></p>
+                                        <p className="mr-3">don't have an acount <a className="text-danger" type="button" onClick={handleSignUpShow}>Sign Up</a></p>
                                         <button className="btn btn-dark float-right" type="submit">Sign In</button>
                                     </div>
                                 </form>

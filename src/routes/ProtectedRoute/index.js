@@ -1,13 +1,12 @@
 import React from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import { useAuth } from "../../Context";
 
 const ProtectedRoute = ({ children }) => {
-    const { token } = useAuth();
-    const location = useLocation();
-    if (!token) {
-        return <Navigate to="/" replace state={{from: location}} />
-    } else return children
+    const token = useSelector(state => state.AuthReducer.token)
+    if (token !== null) {
+        return children
+    } else return <Navigate to="/" replace />
 }
 export { ProtectedRoute }

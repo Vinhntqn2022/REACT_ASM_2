@@ -1,20 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Alert } from 'react-bootstrap'
 import './SignUpSuccess.css'
+import { useSelector, useDispatch } from "react-redux";
+import { AlertActions } from "../../../redux/rootAction";
 
-import {useAuth} from "../../../Context"
 
-export default function SignUpSuccess() {
-    const {showSuccess, setShowSucess} = useAuth()
+ const SignUpSuccess = () => {
+     const showSuccess = useSelector(state => state.AlertReducer.signUpSuccess)
+     const dispatch = useDispatch()
+    
     return (
         <div className="alert">
             <Alert variant="success" show={showSuccess} >
-                 <button className="close" onClick={() => setShowSucess(false)}>close</button>
+                 <button className="close" onClick={() => dispatch(AlertActions.setSignUpSuccess(false))}>close</button>
                 <Alert.Heading>Hey, nice to see you</Alert.Heading> 
                 <p>Congratulation! </p>
                 <hr />
-                <p className="mb-0">Now you can Sign In and enjoy your daily routines</p>
+                <p className="mb-0">Now you can enjoy your daily routines</p>
             </Alert>
         </div>
     )
 }
+
+export default SignUpSuccess

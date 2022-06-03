@@ -1,11 +1,11 @@
-.alert {
+.singupfail-alert {
   width: 50%;
   position: absolute;
   top: 0;
   right: 0;
   z-index: 1;
 }
-.alert .close::before{
+.singupfail-alert__close::before{
     content: 'X';
     visibility: visible;
     color: "black";
@@ -16,7 +16,7 @@
     visibility: hidden;
   }
   
-  .alert .close{
+  .singupfail-alert__close{
     /*background-color: red; */
     visibility:hidden;
     position: absolute;
